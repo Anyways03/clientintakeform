@@ -10,8 +10,6 @@
 
   :root {
     --bg: #080808;
-    --bg2: #0f0f0f;
-    --bg3: #141414;
     --border: rgba(255,255,255,0.08);
     --border-glass: rgba(255,255,255,0.11);
     --text: #f0f0f0;
@@ -33,12 +31,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: flex-start;
     padding: 60px 24px 80px;
     overflow-x: hidden;
   }
 
-  /* ── BG ORB ── */
   .bg-orb {
     position: fixed; top: -160px; left: 50%;
     transform: translateX(-50%);
@@ -50,7 +46,7 @@
   }
   @keyframes pulse {
     0%,100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
-    50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+    50%      { opacity: 1;   transform: translateX(-50%) scale(1.1); }
   }
 
   /* ── CARD ── */
@@ -65,24 +61,19 @@
     box-shadow: var(--glass-shadow);
     overflow: hidden;
   }
-
-  /* top accent line */
   .form-card::before {
     content: '';
     display: block; width: 100%; height: 2px;
     background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
   }
 
-  .form-header {
-    padding: 40px 44px 32px;
-    border-bottom: 1px solid var(--border);
-  }
+  /* ── HEADER ── */
+  .form-header { padding: 40px 44px 32px; border-bottom: 1px solid var(--border); }
 
   .back-link {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 12px; font-weight: 500; color: var(--muted);
-    text-decoration: none; letter-spacing: 0.3px;
-    margin-bottom: 28px;
+    text-decoration: none; margin-bottom: 28px;
     transition: color 0.2s;
   }
   .back-link:hover { color: var(--accent); }
@@ -98,13 +89,11 @@
     font-weight: 700; letter-spacing: -1px; line-height: 1.1;
     margin-bottom: 10px;
   }
-  .form-sub {
-    font-size: 14px; color: var(--muted); line-height: 1.65;
-  }
+  .form-sub { font-size: 14px; color: var(--muted); line-height: 1.65; }
 
-  /* ── STEPS INDICATOR ── */
+  /* ── STEPS ── */
   .steps {
-    display: flex; align-items: center; gap: 0;
+    display: flex; align-items: center;
     padding: 20px 44px;
     border-bottom: 1px solid var(--border);
   }
@@ -114,44 +103,34 @@
     flex: 1;
   }
   .step.active { color: var(--text); }
-  .step.done { color: var(--accent); }
+  .step.done   { color: var(--accent); }
   .step-num {
     width: 24px; height: 24px; border-radius: 50%;
-    background: var(--bg3); border: 1px solid var(--border);
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border);
     display: flex; align-items: center; justify-content: center;
     font-size: 11px; font-weight: 700; flex-shrink: 0;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background 0.2s, border-color 0.2s, color 0.2s;
   }
-  .step.active .step-num {
-    background: var(--accent); border-color: var(--accent); color: #fff;
-  }
-  .step.done .step-num {
-    background: rgba(255,92,40,0.15); border-color: var(--accent); color: var(--accent);
-  }
-  .step-divider {
-    flex: 1; height: 1px; background: var(--border);
-    margin: 0 4px; max-width: 40px;
-  }
+  .step.active .step-num { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .step.done   .step-num { background: rgba(255,92,40,0.15); border-color: var(--accent); color: var(--accent); }
+  .step-divider { flex: 1; height: 1px; background: var(--border); margin: 0 4px; max-width: 40px; }
 
   /* ── FORM BODY ── */
   .form-body { padding: 36px 44px 40px; }
 
-  .field-group { margin-bottom: 24px; }
-  .field-group:last-of-type { margin-bottom: 32px; }
-
-  label {
+  .field-group { margin-bottom: 22px; }
+  .field-label {
     display: block;
     font-size: 13px; font-weight: 500; color: var(--text);
-    margin-bottom: 8px; letter-spacing: 0.1px;
+    margin-bottom: 8px;
   }
-  label .req { color: var(--accent); margin-left: 2px; }
-  label .hint { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: 12px; }
+  .field-label .req  { color: var(--accent); margin-left: 2px; }
+  .field-label .hint { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: 12px; }
 
   input[type="text"],
   input[type="email"],
   input[type="number"],
-  textarea,
-  select {
+  textarea {
     width: 100%;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border-glass);
@@ -165,56 +144,55 @@
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
   }
   input::placeholder, textarea::placeholder { color: var(--muted); }
-  input:focus, textarea:focus, select:focus {
+  input:focus, textarea:focus {
     border-color: var(--accent);
     background: rgba(255,92,40,0.04);
     box-shadow: 0 0 0 3px rgba(255,92,40,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
   }
-  select option { background: #1a1a1a; color: var(--text); }
-  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
-
-  /* inline row */
+  textarea { resize: vertical; min-height: 96px; line-height: 1.6; }
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
-  /* ── VIDEO TYPE CHIPS ── */
+  /* ── CHIP SELECTORS ── */
   .chip-group { display: flex; flex-wrap: wrap; gap: 10px; }
-  .chip input { position: absolute; opacity: 0; pointer-events: none; }
-  .chip label {
-    display: flex; align-items: center; gap: 8px;
+
+  /* outer wrapper is a div, radio is hidden, visible label is the styled pill */
+  .chip-wrap { position: relative; }
+  .chip-wrap input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .chip-wrap .chip-label {
+    display: inline-flex; align-items: center; gap: 8px;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border-glass);
     border-radius: 40px; padding: 10px 18px;
     font-size: 13px; font-weight: 500; color: var(--muted);
-    cursor: pointer; margin: 0;
+    cursor: pointer;
     transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
     user-select: none;
     box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
   }
-  .chip label:hover {
-    border-color: rgba(255,92,40,0.4); color: var(--text);
-  }
-  .chip input:checked + label {
+  .chip-wrap .chip-label:hover { border-color: rgba(255,92,40,0.4); color: var(--text); }
+  .chip-wrap input[type="radio"]:checked + .chip-label {
     border-color: var(--accent);
     background: rgba(255,92,40,0.1);
     color: var(--text);
     box-shadow: 0 0 0 1px rgba(255,92,40,0.3), inset 0 1px 0 rgba(255,140,90,0.12);
   }
-  .chip-icon { font-size: 15px; }
 
-  /* ── BUDGET SELECT ── */
+  /* ── BUDGET CARDS ── */
   .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-  .budget-opt input { position: absolute; opacity: 0; pointer-events: none; }
-  .budget-opt label {
+
+  .budget-wrap { position: relative; }
+  .budget-wrap input[type="radio"] { position: absolute; opacity: 0; width: 0; height: 0; }
+  .budget-wrap .budget-label {
     display: flex; flex-direction: column; gap: 2px;
     background: rgba(255,255,255,0.04);
     border: 1px solid var(--border-glass);
     border-radius: 12px; padding: 14px 16px;
-    cursor: pointer; margin: 0;
+    cursor: pointer;
     transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
     user-select: none;
   }
-  .budget-opt label:hover { border-color: rgba(255,92,40,0.3); }
-  .budget-opt input:checked + label {
+  .budget-wrap .budget-label:hover { border-color: rgba(255,92,40,0.3); }
+  .budget-wrap input[type="radio"]:checked + .budget-label {
     border-color: var(--accent);
     background: rgba(255,92,40,0.08);
     box-shadow: 0 0 0 1px rgba(255,92,40,0.25);
@@ -223,63 +201,82 @@
     font-family: 'Space Grotesk', sans-serif;
     font-size: 15px; font-weight: 700; color: var(--text);
   }
-  .budget-label { font-size: 11px; color: var(--muted); font-weight: 400; }
+  .budget-tier { font-size: 11px; color: var(--muted); font-weight: 400; }
 
-  /* ── SUBMIT ── */
-  .submit-btn {
-    width: 100%;
-    background: var(--accent);
-    color: #fff; border: none;
+  /* ── BUTTONS ── */
+  .btn-row { display: flex; gap: 12px; margin-top: 8px; }
+  .btn-primary {
+    flex: 1;
+    background: var(--accent); color: #fff; border: none;
     padding: 16px 32px; border-radius: 14px;
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 15px; font-weight: 600; letter-spacing: 0.1px;
+    font-size: 15px; font-weight: 600;
     cursor: pointer;
+    display: flex; align-items: center; justify-content: center; gap: 8px;
     transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
     box-shadow: 0 4px 20px rgba(255,92,40,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
-    display: flex; align-items: center; justify-content: center; gap: 8px;
   }
-  .submit-btn:hover {
-    background: var(--accent2);
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(255,92,40,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
-  }
-  .submit-btn:active { transform: translateY(0); }
+  .btn-primary:hover { background: var(--accent2); transform: translateY(-2px); box-shadow: 0 8px 32px rgba(255,92,40,0.4); }
+  .btn-primary:active { transform: translateY(0); }
+  .btn-primary:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
 
-  /* ── SUCCESS STATE ── */
+  .btn-back {
+    flex: 0 0 auto;
+    background: var(--glass-bg); color: var(--muted);
+    border: 1px solid var(--border-glass);
+    padding: 16px 20px; border-radius: 14px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+    box-shadow: none;
+  }
+  .btn-back:hover { border-color: rgba(255,255,255,0.2); color: var(--text); }
+
+  /* error state */
+  .field-error { border-color: rgba(255,92,40,0.6) !important; }
+  .form-error-msg {
+    color: var(--accent); font-size: 13px;
+    margin-top: 12px; text-align: center;
+  }
+
+  /* ── SUCCESS ── */
   .success-screen {
-    display: none;
-    text-align: center; padding: 64px 44px;
+    display: none; text-align: center; padding: 64px 44px;
   }
   .success-icon {
     width: 64px; height: 64px;
-    background: rgba(255,92,40,0.12);
-    border: 1px solid rgba(255,92,40,0.3);
+    background: rgba(255,92,40,0.12); border: 1px solid rgba(255,92,40,0.3);
     border-radius: 50%;
     display: flex; align-items: center; justify-content: center;
-    margin: 0 auto 24px;
-    font-size: 28px;
+    margin: 0 auto 24px; font-size: 28px;
   }
   .success-title {
     font-family: 'Space Grotesk', sans-serif;
-    font-size: 26px; font-weight: 700; letter-spacing: -0.5px;
-    margin-bottom: 12px;
+    font-size: 26px; font-weight: 700; letter-spacing: -0.5px; margin-bottom: 12px;
   }
   .success-sub { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 340px; margin: 0 auto; }
 
   /* ── FOOTER ── */
   .form-footer {
     margin-top: 24px; text-align: center;
-    font-size: 12px; color: rgba(240,240,240,0.2); letter-spacing: 0.3px;
+    font-size: 12px; color: rgba(240,240,240,0.2);
     position: relative; z-index: 1;
   }
   .form-footer a { color: var(--accent); text-decoration: none; }
 
-  /* ── RESPONSIVE ── */
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25%      { transform: translateX(-6px); }
+    75%      { transform: translateX(6px); }
+  }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
   @media (max-width: 560px) {
     body { padding: 32px 16px 60px; }
     .form-header, .form-body, .steps { padding-left: 24px; padding-right: 24px; }
     .field-row { grid-template-columns: 1fr; }
-    .budget-grid { grid-template-columns: 1fr 1fr; }
   }
 </style>
 </head>
@@ -287,10 +284,9 @@
 
 <div class="bg-orb"></div>
 
-<div class="form-card" id="form-card">
+<div class="form-card">
 
-  <!-- HEADER -->
-  <div class="form-header">
+  <div class="form-header" id="hdr">
     <a href="javascript:history.back()" class="back-link">
       <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
       Back to portfolio
@@ -300,155 +296,146 @@
     <p class="form-sub">Tell me what you need — I'll get back to you within 24 hours.</p>
   </div>
 
-  <!-- STEPS -->
-  <div class="steps">
-    <div class="step active" id="step-1">
-      <div class="step-num">1</div>
-      <span>You</span>
-    </div>
+  <div class="steps" id="steps-bar">
+    <div class="step active" id="s1"><div class="step-num">1</div><span>You</span></div>
     <div class="step-divider"></div>
-    <div class="step" id="step-2">
-      <div class="step-num">2</div>
-      <span>Project</span>
-    </div>
+    <div class="step"        id="s2"><div class="step-num">2</div><span>Project</span></div>
     <div class="step-divider"></div>
-    <div class="step" id="step-3">
-      <div class="step-num">3</div>
-      <span>Budget</span>
-    </div>
+    <div class="step"        id="s3"><div class="step-num">3</div><span>Budget</span></div>
   </div>
 
-  <!-- FORM -->
   <form id="intake-form" name="client-intake" netlify netlify-honeypot="bot-field" novalidate>
     <input type="hidden" name="form-name" value="client-intake">
-    <input type="hidden" name="bot-field" style="display:none">
+    <input name="bot-field" style="display:none">
 
     <div class="form-body">
 
-      <!-- STEP 1: Contact -->
+      <!-- PAGE 1 -->
       <div class="form-step" id="page-1">
         <div class="field-row">
           <div class="field-group">
-            <label for="name">Your Name <span class="req">*</span></label>
-            <input type="text" id="name" name="name" placeholder="Anvay Atre" required autocomplete="name">
+            <label class="field-label" for="f-name">Your Name <span class="req">*</span></label>
+            <input type="text" id="f-name" name="name" placeholder="Anvay Atre" required autocomplete="name">
           </div>
           <div class="field-group">
-            <label for="email">Email <span class="req">*</span></label>
-            <input type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email">
+            <label class="field-label" for="f-email">Email <span class="req">*</span></label>
+            <input type="email" id="f-email" name="email" placeholder="you@email.com" required autocomplete="email">
           </div>
         </div>
         <div class="field-group">
-          <label for="brand">Channel / Brand Name <span class="req">*</span></label>
-          <input type="text" id="brand" name="brand" placeholder="e.g. Counting Unique" required>
+          <label class="field-label" for="f-brand">Channel / Brand Name <span class="req">*</span></label>
+          <input type="text" id="f-brand" name="brand" placeholder="e.g. Counting Unique" required>
         </div>
         <div class="field-group">
-          <label>Social / YouTube Link <span class="hint">optional</span></label>
-          <input type="text" name="channel_link" placeholder="https://youtube.com/@yourchannel">
+          <label class="field-label" for="f-link">YouTube / Social Link <span class="hint">optional</span></label>
+          <input type="text" id="f-link" name="channel_link" placeholder="https://youtube.com/@yourchannel">
         </div>
-        <button type="button" class="submit-btn" onclick="nextStep(1)">
-          Continue
-          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-
-      <!-- STEP 2: Project -->
-      <div class="form-step" id="page-2" style="display:none">
-        <div class="field-group">
-          <label>Type of videos <span class="req">*</span></label>
-          <div class="chip-group">
-            <label class="chip">
-              <input type="radio" name="video_type" value="Short-form" required>
-              <label><span class="chip-icon">⚡</span> Shorts / Reels</label>
-            </label>
-            <label class="chip">
-              <input type="radio" name="video_type" value="Long-form">
-              <label><span class="chip-icon">🎬</span> Long-form</label>
-            </label>
-            <label class="chip">
-              <input type="radio" name="video_type" value="Podcast">
-              <label><span class="chip-icon">🎙️</span> Podcast</label>
-            </label>
-            <label class="chip">
-              <input type="radio" name="video_type" value="Both">
-              <label><span class="chip-icon">✦</span> Multiple types</label>
-            </label>
-          </div>
-        </div>
-        <div class="field-row">
-          <div class="field-group">
-            <label for="volume">Videos per month <span class="req">*</span></label>
-            <input type="number" id="volume" name="volume" placeholder="e.g. 8" min="1" required>
-          </div>
-          <div class="field-group">
-            <label for="deadline">Turnaround needed <span class="hint">days</span></label>
-            <input type="number" id="deadline" name="deadline" placeholder="e.g. 3">
-          </div>
-        </div>
-        <div class="field-group">
-          <label for="notes">Anything specific I should know <span class="hint">optional</span></label>
-          <textarea id="notes" name="notes" placeholder="Style preferences, niche, current pain points with editing…"></textarea>
-        </div>
-        <div style="display:flex;gap:12px">
-          <button type="button" class="submit-btn" style="background:var(--glass-bg);border:1px solid var(--border-glass);color:var(--muted);box-shadow:none;flex:0 0 auto;width:auto;padding:16px 22px" onclick="prevStep(2)">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
-          </button>
-          <button type="button" class="submit-btn" style="flex:1" onclick="nextStep(2)">
+        <div class="btn-row">
+          <button type="button" class="btn-primary" onclick="nextStep(1)">
             Continue
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
           </button>
         </div>
       </div>
 
-      <!-- STEP 3: Budget -->
-      <div class="form-step" id="page-3" style="display:none">
+      <!-- PAGE 2 -->
+      <div class="form-step" id="page-2" style="display:none">
         <div class="field-group">
-          <label>Budget per video <span class="req">*</span></label>
-          <div class="budget-grid">
-            <label class="budget-opt">
-              <input type="radio" name="budget" value="Under ₹2,000" required>
-              <label>
-                <span class="budget-amount">Under ₹2K</span>
-                <span class="budget-label">Entry level</span>
-              </label>
-            </label>
-            <label class="budget-opt">
-              <input type="radio" name="budget" value="₹2,000–₹5,000">
-              <label>
-                <span class="budget-amount">₹2K – ₹5K</span>
-                <span class="budget-label">Standard</span>
-              </label>
-            </label>
-            <label class="budget-opt">
-              <input type="radio" name="budget" value="₹5,000–₹10,000">
-              <label>
-                <span class="budget-amount">₹5K – ₹10K</span>
-                <span class="budget-label">Professional</span>
-              </label>
-            </label>
-            <label class="budget-opt">
-              <input type="radio" name="budget" value="₹10,000+">
-              <label>
-                <span class="budget-amount">₹10K+</span>
-                <span class="budget-label">Premium</span>
-              </label>
-            </label>
+          <span class="field-label">Type of videos <span class="req">*</span></span>
+          <div class="chip-group" id="chip-video-type">
+            <div class="chip-wrap">
+              <input type="radio" id="vt-short"   name="video_type" value="Shorts / Reels">
+              <label class="chip-label" for="vt-short">⚡ Shorts / Reels</label>
+            </div>
+            <div class="chip-wrap">
+              <input type="radio" id="vt-long"    name="video_type" value="Long-form">
+              <label class="chip-label" for="vt-long">🎬 Long-form</label>
+            </div>
+            <div class="chip-wrap">
+              <input type="radio" id="vt-podcast" name="video_type" value="Podcast">
+              <label class="chip-label" for="vt-podcast">🎙️ Podcast</label>
+            </div>
+            <div class="chip-wrap">
+              <input type="radio" id="vt-both"    name="video_type" value="Multiple types">
+              <label class="chip-label" for="vt-both">✦ Multiple types</label>
+            </div>
           </div>
         </div>
-        <div style="display:flex;gap:12px">
-          <button type="button" class="submit-btn" style="background:var(--glass-bg);border:1px solid var(--border-glass);color:var(--muted);box-shadow:none;flex:0 0 auto;width:auto;padding:16px 22px" onclick="prevStep(3)">
+        <div class="field-row">
+          <div class="field-group">
+            <label class="field-label" for="f-volume">Videos per month <span class="req">*</span></label>
+            <input type="number" id="f-volume" name="volume" placeholder="e.g. 8" min="1" required>
+          </div>
+          <div class="field-group">
+            <label class="field-label" for="f-deadline">Turnaround <span class="hint">days</span></label>
+            <input type="number" id="f-deadline" name="deadline" placeholder="e.g. 3" min="1">
+          </div>
+        </div>
+        <div class="field-group">
+          <label class="field-label" for="f-notes">Anything I should know <span class="hint">optional</span></label>
+          <textarea id="f-notes" name="notes" placeholder="Style, niche, current pain points…"></textarea>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="setStep(1)">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
           </button>
-          <button type="submit" class="submit-btn" style="flex:1" id="submit-btn">
+          <button type="button" class="btn-primary" onclick="nextStep(2)">
+            Continue
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- PAGE 3 -->
+      <div class="form-step" id="page-3" style="display:none">
+        <div class="field-group">
+          <span class="field-label">Budget per video <span class="req">*</span></span>
+          <div class="budget-grid" id="budget-grid">
+            <div class="budget-wrap">
+              <input type="radio" id="b1" name="budget" value="Under ₹2,000">
+              <label class="budget-label" for="b1">
+                <span class="budget-amount">Under ₹2K</span>
+                <span class="budget-tier">Entry level</span>
+              </label>
+            </div>
+            <div class="budget-wrap">
+              <input type="radio" id="b2" name="budget" value="₹2,000–₹5,000">
+              <label class="budget-label" for="b2">
+                <span class="budget-amount">₹2K – ₹5K</span>
+                <span class="budget-tier">Standard</span>
+              </label>
+            </div>
+            <div class="budget-wrap">
+              <input type="radio" id="b3" name="budget" value="₹5,000–₹10,000">
+              <label class="budget-label" for="b3">
+                <span class="budget-amount">₹5K – ₹10K</span>
+                <span class="budget-tier">Professional</span>
+              </label>
+            </div>
+            <div class="budget-wrap">
+              <input type="radio" id="b4" name="budget" value="₹10,000+">
+              <label class="budget-label" for="b4">
+                <span class="budget-amount">₹10K+</span>
+                <span class="budget-tier">Premium</span>
+              </label>
+            </div>
+          </div>
+        </div>
+        <div class="btn-row">
+          <button type="button" class="btn-back" onclick="setStep(2)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button type="submit" class="btn-primary" id="submit-btn">
             Send Inquiry
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
           </button>
         </div>
+        <p class="form-error-msg" id="form-error" style="display:none"></p>
       </div>
 
     </div>
   </form>
 
-  <!-- SUCCESS -->
   <div class="success-screen" id="success-screen">
     <div class="success-icon">🎬</div>
     <h2 class="success-title">You're in the queue!</h2>
@@ -464,112 +451,101 @@
 <script>
   // ── STEP NAV ──
   function setStep(n) {
-    document.querySelectorAll('.form-step').forEach((el, i) => {
+    document.querySelectorAll('.form-step').forEach(function(el, i) {
       el.style.display = (i + 1 === n) ? '' : 'none';
     });
-    document.querySelectorAll('.step').forEach((el, i) => {
-      el.classList.remove('active','done');
-      if (i + 1 === n) el.classList.add('active');
-      if (i + 1 < n) el.classList.add('done');
+    ['s1','s2','s3'].forEach(function(id, i) {
+      var el = document.getElementById(id);
+      el.className = 'step' + (i + 1 === n ? ' active' : i + 1 < n ? ' done' : '');
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
   function nextStep(current) {
-    // basic validation
-    const page = document.getElementById(`page-${current}`);
-    const required = page.querySelectorAll('[required]');
-    let ok = true;
-    required.forEach(el => {
-      if (el.type === 'radio') {
-        const group = page.querySelectorAll(`[name="${el.name}"]`);
-        if (![...group].some(r => r.checked)) {
-          ok = false;
-          el.closest('.chip-group, .budget-grid') && shake(el.closest('.chip-group, .budget-grid'));
-        }
-      } else if (!el.value.trim()) {
-        ok = false; shake(el);
+    var page = document.getElementById('page-' + current);
+    var valid = true;
+
+    // validate text / email / number inputs
+    page.querySelectorAll('input[required]').forEach(function(el) {
+      if (el.type === 'radio') return; // handled separately
+      el.classList.remove('field-error');
+      if (!el.value.trim()) {
+        el.classList.add('field-error');
+        el.style.animation = 'shake 0.35s ease';
+        setTimeout(function() { el.style.animation = ''; }, 400);
+        valid = false;
       }
     });
-    if (ok) setStep(current + 1);
-  }
 
-  function prevStep(current) { setStep(current - 1); }
+    // validate radio groups marked required on this page
+    var radioGroups = {};
+    page.querySelectorAll('input[type="radio"]').forEach(function(el) {
+      radioGroups[el.name] = radioGroups[el.name] || [];
+      radioGroups[el.name].push(el);
+    });
+    Object.keys(radioGroups).forEach(function(name) {
+      var group = radioGroups[name];
+      var checked = group.some(function(r) { return r.checked; });
+      if (!checked) {
+        valid = false;
+        var container = group[0].closest('.chip-group, .budget-grid');
+        if (container) {
+          container.style.animation = 'shake 0.35s ease';
+          setTimeout(function() { container.style.animation = ''; }, 400);
+        }
+      }
+    });
 
-  function shake(el) {
-    el.style.animation = 'shake 0.35s ease';
-    el.style.borderColor = 'rgba(255,92,40,0.6)';
-    setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 400);
+    if (valid) setStep(current + 1);
   }
 
   // ── FORM SUBMIT ──
-  // 👉 SETUP: Go to https://formspree.io → New Form → copy your endpoint URL
-  // Replace the placeholder below with your real endpoint e.g. https://formspree.io/f/xyzabc12
-  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpqnlepa';
+  var ENDPOINT = 'https://formspree.io/f/xpqnlepa';
 
-  const form = document.getElementById('intake-form');
-  form.addEventListener('submit', async (e) => {
+  document.getElementById('intake-form').addEventListener('submit', function(e) {
     e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    const originalHTML = btn.innerHTML;
-    btn.innerHTML = '<svg width="16" height="16" style="animation:spin 0.8s linear infinite" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Sending…';
+    var form = e.target;
+    var btn  = document.getElementById('submit-btn');
+    var errEl = document.getElementById('form-error');
+
     btn.disabled = true;
+    btn.innerHTML = '<svg width="16" height="16" style="animation:spin 0.8s linear infinite;vertical-align:middle" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Sending…';
+    errEl.style.display = 'none';
 
-    let success = false;
-    try {
-      const res = await fetch(FORMSPREE_ENDPOINT, {
-        method: 'POST',
-        headers: { 'Accept': 'application/json' },
-        body: new FormData(form)
-      });
-      success = res.ok;
-    } catch (_) {}
-
-    if (success) {
-      form.style.display = 'none';
-      document.querySelector('.form-header').style.display = 'none';
-      document.querySelector('.steps').style.display = 'none';
-      document.getElementById('success-screen').style.display = 'block';
-    } else {
-      btn.innerHTML = originalHTML;
+    // validate budget selected
+    var budgetChosen = document.querySelector('input[name="budget"]:checked');
+    if (!budgetChosen) {
+      var bg = document.getElementById('budget-grid');
+      bg.style.animation = 'shake 0.35s ease';
+      setTimeout(function() { bg.style.animation = ''; }, 400);
       btn.disabled = false;
-      // Show inline error
-      let err = document.getElementById('form-error');
-      if (!err) {
-        err = document.createElement('p');
-        err.id = 'form-error';
-        err.style.cssText = 'color:#FF5C28;font-size:13px;margin-top:12px;text-align:center';
-        btn.parentNode.appendChild(err);
-      }
-      err.textContent = FORMSPREE_ENDPOINT === https://formspree.io/f/xpqnlepa'YOUR_FORMSPREE_ENDPOINT'
-        ? '⚠️ Form not connected yet — add your Formspree endpoint to the HTML.'
-        : '⚠️ Something went wrong. Please email business4anvay@gmail.com directly.';
+      btn.innerHTML = 'Send Inquiry <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>';
+      return;
     }
-  });
 
-  // ── CHIP RADIO FIX (nested label) ──
-  document.querySelectorAll('.chip, .budget-opt').forEach(chip => {
-    const radio = chip.querySelector('input[type="radio"]');
-    const lbl = chip.querySelector('label');
-    if (lbl) lbl.addEventListener('click', () => {
-      radio.checked = true;
-      radio.dispatchEvent(new Event('change', { bubbles: true }));
+    fetch(ENDPOINT, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    })
+    .then(function(res) {
+      if (res.ok) {
+        document.getElementById('hdr').style.display = 'none';
+        document.getElementById('steps-bar').style.display = 'none';
+        form.style.display = 'none';
+        document.getElementById('success-screen').style.display = 'block';
+      } else {
+        throw new Error('failed');
+      }
+    })
+    .catch(function() {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Inquiry <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>';
+      errEl.textContent = '⚠️ Something went wrong. Email business4anvay@gmail.com directly.';
+      errEl.style.display = 'block';
     });
   });
-
-
 </script>
-
-<style>
-  @keyframes shake {
-    0%,100% { transform: translateX(0); }
-    25% { transform: translateX(-6px); }
-    75% { transform: translateX(6px); }
-  }
-  @keyframes spin {
-    to { transform: rotate(360deg); }
-  }
-</style>
 
 </body>
 </html>
