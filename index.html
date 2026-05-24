@@ -1,87 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anvay Edits - Client Intake Form</title>
-    <!-- This line links your new stylesheet -->
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Start a Project — Anvay Edits</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg: #080808;
+    --bg2: #0f0f0f;
+    --bg3: #141414;
+    --border: rgba(255,255,255,0.08);
+    --border-glass: rgba(255,255,255,0.11);
+    --text: #f0f0f0;
+    --muted: rgba(240,240,240,0.45);
+    --accent: #FF5C28;
+    --accent2: #FF8C5A;
+    --glass-bg: rgba(255,255,255,0.03);
+    --glass-blur: blur(20px) saturate(160%);
+    --glass-shadow: 0 4px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 60px 24px 80px;
+    overflow-x: hidden;
+  }
+
+  /* ── BG ORB ── */
+  .bg-orb {
+    position: fixed; top: -160px; left: 50%;
+    transform: translateX(-50%);
+    width: 700px; height: 700px;
+    background: radial-gradient(circle, rgba(255,92,40,0.09) 0%, transparent 65%);
+    filter: blur(80px);
+    pointer-events: none; z-index: 0;
+    animation: pulse 7s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
+    50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+  }
+
+  /* ── CARD ── */
+  .form-card {
+    position: relative; z-index: 1;
+    width: 100%; max-width: 580px;
+    background: var(--glass-bg);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-glass);
+    border-radius: 24px;
+    box-shadow: var(--glass-shadow);
+    overflow: hidden;
+  }
+
+  /* top accent line */
+  .form-card::before {
+    content: '';
+    display: block; width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
+  }
+
+  .form-header {
+    padding: 40px 44px 32px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .back-link {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 12px; font-weight: 500; color: var(--muted);
+    text-decoration: none; letter-spacing: 0.3px;
+    margin-bottom: 28px;
+    transition: color 0.2s;
+  }
+  .back-link:hover { color: var(--accent); }
+
+  .brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
+    color: var(--accent); text-transform: uppercase; margin-bottom: 12px;
+  }
+  .form-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: clamp(26px, 5vw, 36px);
+    font-weight: 700; letter-spacing: -1px; line-height: 1.1;
+    margin-bottom: 10px;
+  }
+  .form-sub {
+    font-size: 14px; color: var(--muted); line-height: 1.65;
+  }
+
+  /* ── STEPS INDICATOR ── */
+  .steps {
+    display: flex; align-items: center; gap: 0;
+    padding: 20px 44px;
+    border-bottom: 1px solid var(--border);
+  }
+  .step {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 12px; font-weight: 500; color: var(--muted);
+    flex: 1;
+  }
+  .step.active { color: var(--text); }
+  .step.done { color: var(--accent); }
+  .step-num {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: var(--bg3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; flex-shrink: 0;
+    transition: background 0.2s, border-color 0.2s;
+  }
+  .step.active .step-num {
+    background: var(--accent); border-color: var(--accent); color: #fff;
+  }
+  .step.done .step-num {
+    background: rgba(255,92,40,0.15); border-color: var(--accent); color: var(--accent);
+  }
+  .step-divider {
+    flex: 1; height: 1px; background: var(--border);
+    margin: 0 4px; max-width: 40px;
+  }
+
+  /* ── FORM BODY ── */
+  .form-body { padding: 36px 44px 40px; }
+
+  .field-group { margin-bottom: 24px; }
+  .field-group:last-of-type { margin-bottom: 32px; }
+
+  label {
+    display: block;
+    font-size: 13px; font-weight: 500; color: var(--text);
+    margin-bottom: 8px; letter-spacing: 0.1px;
+  }
+  label .req { color: var(--accent); margin-left: 2px; }
+  label .hint { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: 12px; }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="number"],
+  textarea,
+  select {
+    width: 100%;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px;
+    padding: 13px 16px;
+    font-family: 'Inter', sans-serif;
+    font-size: 14px; color: var(--text);
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
+    -webkit-appearance: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  }
+  input::placeholder, textarea::placeholder { color: var(--muted); }
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    background: rgba(255,92,40,0.04);
+    box-shadow: 0 0 0 3px rgba(255,92,40,0.12), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  select option { background: #1a1a1a; color: var(--text); }
+  textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
+
+  /* inline row */
+  .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  /* ── VIDEO TYPE CHIPS ── */
+  .chip-group { display: flex; flex-wrap: wrap; gap: 10px; }
+  .chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip label {
+    display: flex; align-items: center; gap: 8px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-glass);
+    border-radius: 40px; padding: 10px 18px;
+    font-size: 13px; font-weight: 500; color: var(--muted);
+    cursor: pointer; margin: 0;
+    transition: border-color 0.2s, color 0.2s, background 0.2s, box-shadow 0.2s;
+    user-select: none;
+    box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .chip label:hover {
+    border-color: rgba(255,92,40,0.4); color: var(--text);
+  }
+  .chip input:checked + label {
+    border-color: var(--accent);
+    background: rgba(255,92,40,0.1);
+    color: var(--text);
+    box-shadow: 0 0 0 1px rgba(255,92,40,0.3), inset 0 1px 0 rgba(255,140,90,0.12);
+  }
+  .chip-icon { font-size: 15px; }
+
+  /* ── BUDGET SELECT ── */
+  .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .budget-opt input { position: absolute; opacity: 0; pointer-events: none; }
+  .budget-opt label {
+    display: flex; flex-direction: column; gap: 2px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border-glass);
+    border-radius: 12px; padding: 14px 16px;
+    cursor: pointer; margin: 0;
+    transition: border-color 0.2s, background 0.2s, box-shadow 0.2s;
+    user-select: none;
+  }
+  .budget-opt label:hover { border-color: rgba(255,92,40,0.3); }
+  .budget-opt input:checked + label {
+    border-color: var(--accent);
+    background: rgba(255,92,40,0.08);
+    box-shadow: 0 0 0 1px rgba(255,92,40,0.25);
+  }
+  .budget-amount {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 700; color: var(--text);
+  }
+  .budget-label { font-size: 11px; color: var(--muted); font-weight: 400; }
+
+  /* ── SUBMIT ── */
+  .submit-btn {
+    width: 100%;
+    background: var(--accent);
+    color: #fff; border: none;
+    padding: 16px 32px; border-radius: 14px;
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 15px; font-weight: 600; letter-spacing: 0.1px;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(255,92,40,0.3), inset 0 1px 0 rgba(255,255,255,0.15);
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+  }
+  .submit-btn:hover {
+    background: var(--accent2);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 32px rgba(255,92,40,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
+  }
+  .submit-btn:active { transform: translateY(0); }
+
+  /* ── SUCCESS STATE ── */
+  .success-screen {
+    display: none;
+    text-align: center; padding: 64px 44px;
+  }
+  .success-icon {
+    width: 64px; height: 64px;
+    background: rgba(255,92,40,0.12);
+    border: 1px solid rgba(255,92,40,0.3);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 0 auto 24px;
+    font-size: 28px;
+  }
+  .success-title {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 26px; font-weight: 700; letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+  .success-sub { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 340px; margin: 0 auto; }
+
+  /* ── FOOTER ── */
+  .form-footer {
+    margin-top: 24px; text-align: center;
+    font-size: 12px; color: rgba(240,240,240,0.2); letter-spacing: 0.3px;
+    position: relative; z-index: 1;
+  }
+  .form-footer a { color: var(--accent); text-decoration: none; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 560px) {
+    body { padding: 32px 16px 60px; }
+    .form-header, .form-body, .steps { padding-left: 24px; padding-right: 24px; }
+    .field-row { grid-template-columns: 1fr; }
+    .budget-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
 </head>
 <body>
-    <!-- The main container now uses the "glass-container" class -->
-    <div class="glass-container">
-        <!-- Form Header -->
-        <div class="form-header">
-            <h1>Anvay Edits - Client Intake Form</h1>
-            <p>Please fill out this form to help us understand your video editing needs.</p>
-        </div>
 
-        <!-- Formspree Form -->
-        <!-- IMPORTANT: Replace the action URL with your unique Formspree URL -->
-        <form action="https://formspree.io/f/xldwdeoo" method="POST">
-            
-            <!-- Contact Information Section -->
-            <div class="form-section">
-                <h2>Contact Information</h2>
-                <div class="input-group">
-                    <label for="clientName">Client Name</label>
-                    <input type="text" id="clientName" name="clientName" required>
-                </div>
-                <div class="input-group">
-                    <label for="contactPersonName">Contact Person Name</label>
-                    <input type="text" id="contactPersonName" name="contactPersonName" required>
-                </div>
-                <div class="input-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="input-group">
-                    <label for="companyName">Company/Brand Name (If applicable)</label>
-                    <input type="text" id="companyName" name="companyName">
-                </div>
-            </div>
+<div class="bg-orb"></div>
 
-            <!-- Project Details Section -->
-            <div class="form-section">
-                <h2>Project Details</h2>
-                <div class="input-group">
-                    <label for="videoType">What type of video(s) do you need edited?</label>
-                    <select id="videoType" name="videoType" required>
-                        <option value="Short-form">Short-form (e.g., TikTok, Reels)</option>
-                        <option value="Long-form">Long-form (e.g., YouTube, interviews)</option>
-                        <option value="Both">Both Short-form and Long-form</option>
-                    </select>
-                </div>
-                <div class="input-group">
-                    <label for="videoCount">How many videos do you anticipate needing per month?</label>
-                    <input type="number" id="videoCount" name="videoCount" required placeholder="e.g., 15">
-                </div>
-                <div class="input-group">
-                    <label for="deliveryTime">What is your expected delivery time per video? (in days)</label>
-                    <input type="number" id="deliveryTime" name="deliveryTime" required placeholder="e.g., 3">
-                </div>
-                 <div class="input-group">
-                    <label for="referenceLink">Please provide a link to a reference video.</label>
-                    <input type="url" id="referenceLink" name="referenceLink" placeholder="https://example.com" required>
-                </div>
-            </div>
+<div class="form-card" id="form-card">
 
-            <!-- Budget & Additional Information Section -->
-            <div class="form-section">
-                 <h2>Budget & Additional Information</h2>
-                <div class="input-group">
-                    <label for="budget">What is your estimated budget per video or per month?</label>
-                    <input type="text" id="budget" name="budget" required placeholder="e.g., Rs 500 per video or Rs 2000 per month">
-                </div>
-                <div class="input-group">
-                    <label for="additionalInfo">Is there anything else you'd like us to know?</label>
-                    <textarea id="additionalInfo" name="additionalInfo" rows="4"></textarea>
-                </div>
-            </div>
+  <!-- HEADER -->
+  <div class="form-header">
+    <a href="javascript:history.back()" class="back-link">
+      <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+      Back to portfolio
+    </a>
+    <div class="brand">Anvay Edits</div>
+    <h1 class="form-title">Start Your Project</h1>
+    <p class="form-sub">Tell me what you need — I'll get back to you within 24 hours.</p>
+  </div>
 
-            <!-- Submit Button -->
-            <button type="submit" class="submit-btn">Submit Inquiry</button>
-        </form>
+  <!-- STEPS -->
+  <div class="steps">
+    <div class="step active" id="step-1">
+      <div class="step-num">1</div>
+      <span>You</span>
     </div>
+    <div class="step-divider"></div>
+    <div class="step" id="step-2">
+      <div class="step-num">2</div>
+      <span>Project</span>
+    </div>
+    <div class="step-divider"></div>
+    <div class="step" id="step-3">
+      <div class="step-num">3</div>
+      <span>Budget</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <form id="intake-form" name="client-intake" netlify netlify-honeypot="bot-field" novalidate>
+    <input type="hidden" name="form-name" value="client-intake">
+    <input type="hidden" name="bot-field" style="display:none">
+
+    <div class="form-body">
+
+      <!-- STEP 1: Contact -->
+      <div class="form-step" id="page-1">
+        <div class="field-row">
+          <div class="field-group">
+            <label for="name">Your Name <span class="req">*</span></label>
+            <input type="text" id="name" name="name" placeholder="Anvay Atre" required autocomplete="name">
+          </div>
+          <div class="field-group">
+            <label for="email">Email <span class="req">*</span></label>
+            <input type="email" id="email" name="email" placeholder="you@email.com" required autocomplete="email">
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="brand">Channel / Brand Name <span class="req">*</span></label>
+          <input type="text" id="brand" name="brand" placeholder="e.g. Counting Unique" required>
+        </div>
+        <div class="field-group">
+          <label>Social / YouTube Link <span class="hint">optional</span></label>
+          <input type="text" name="channel_link" placeholder="https://youtube.com/@yourchannel">
+        </div>
+        <button type="button" class="submit-btn" onclick="nextStep(1)">
+          Continue
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+
+      <!-- STEP 2: Project -->
+      <div class="form-step" id="page-2" style="display:none">
+        <div class="field-group">
+          <label>Type of videos <span class="req">*</span></label>
+          <div class="chip-group">
+            <label class="chip">
+              <input type="radio" name="video_type" value="Short-form" required>
+              <label><span class="chip-icon">⚡</span> Shorts / Reels</label>
+            </label>
+            <label class="chip">
+              <input type="radio" name="video_type" value="Long-form">
+              <label><span class="chip-icon">🎬</span> Long-form</label>
+            </label>
+            <label class="chip">
+              <input type="radio" name="video_type" value="Podcast">
+              <label><span class="chip-icon">🎙️</span> Podcast</label>
+            </label>
+            <label class="chip">
+              <input type="radio" name="video_type" value="Both">
+              <label><span class="chip-icon">✦</span> Multiple types</label>
+            </label>
+          </div>
+        </div>
+        <div class="field-row">
+          <div class="field-group">
+            <label for="volume">Videos per month <span class="req">*</span></label>
+            <input type="number" id="volume" name="volume" placeholder="e.g. 8" min="1" required>
+          </div>
+          <div class="field-group">
+            <label for="deadline">Turnaround needed <span class="hint">days</span></label>
+            <input type="number" id="deadline" name="deadline" placeholder="e.g. 3">
+          </div>
+        </div>
+        <div class="field-group">
+          <label for="notes">Anything specific I should know <span class="hint">optional</span></label>
+          <textarea id="notes" name="notes" placeholder="Style preferences, niche, current pain points with editing…"></textarea>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button type="button" class="submit-btn" style="background:var(--glass-bg);border:1px solid var(--border-glass);color:var(--muted);box-shadow:none;flex:0 0 auto;width:auto;padding:16px 22px" onclick="prevStep(2)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button type="button" class="submit-btn" style="flex:1" onclick="nextStep(2)">
+            Continue
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- STEP 3: Budget -->
+      <div class="form-step" id="page-3" style="display:none">
+        <div class="field-group">
+          <label>Budget per video <span class="req">*</span></label>
+          <div class="budget-grid">
+            <label class="budget-opt">
+              <input type="radio" name="budget" value="Under ₹2,000" required>
+              <label>
+                <span class="budget-amount">Under ₹2K</span>
+                <span class="budget-label">Entry level</span>
+              </label>
+            </label>
+            <label class="budget-opt">
+              <input type="radio" name="budget" value="₹2,000–₹5,000">
+              <label>
+                <span class="budget-amount">₹2K – ₹5K</span>
+                <span class="budget-label">Standard</span>
+              </label>
+            </label>
+            <label class="budget-opt">
+              <input type="radio" name="budget" value="₹5,000–₹10,000">
+              <label>
+                <span class="budget-amount">₹5K – ₹10K</span>
+                <span class="budget-label">Professional</span>
+              </label>
+            </label>
+            <label class="budget-opt">
+              <input type="radio" name="budget" value="₹10,000+">
+              <label>
+                <span class="budget-amount">₹10K+</span>
+                <span class="budget-label">Premium</span>
+              </label>
+            </label>
+          </div>
+        </div>
+        <div style="display:flex;gap:12px">
+          <button type="button" class="submit-btn" style="background:var(--glass-bg);border:1px solid var(--border-glass);color:var(--muted);box-shadow:none;flex:0 0 auto;width:auto;padding:16px 22px" onclick="prevStep(3)">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/></svg>
+          </button>
+          <button type="submit" class="submit-btn" style="flex:1" id="submit-btn">
+            Send Inquiry
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"/></svg>
+          </button>
+        </div>
+      </div>
+
+    </div>
+  </form>
+
+  <!-- SUCCESS -->
+  <div class="success-screen" id="success-screen">
+    <div class="success-icon">🎬</div>
+    <h2 class="success-title">You're in the queue!</h2>
+    <p class="success-sub">Got your details. I'll review and get back to you at your email within 24 hours.</p>
+  </div>
+
+</div>
+
+<p class="form-footer">
+  © 2024 Anvay Edits &nbsp;·&nbsp; <a href="mailto:business4anvay@gmail.com">business4anvay@gmail.com</a>
+</p>
+
+<script>
+  // ── STEP NAV ──
+  function setStep(n) {
+    document.querySelectorAll('.form-step').forEach((el, i) => {
+      el.style.display = (i + 1 === n) ? '' : 'none';
+    });
+    document.querySelectorAll('.step').forEach((el, i) => {
+      el.classList.remove('active','done');
+      if (i + 1 === n) el.classList.add('active');
+      if (i + 1 < n) el.classList.add('done');
+    });
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function nextStep(current) {
+    // basic validation
+    const page = document.getElementById(`page-${current}`);
+    const required = page.querySelectorAll('[required]');
+    let ok = true;
+    required.forEach(el => {
+      if (el.type === 'radio') {
+        const group = page.querySelectorAll(`[name="${el.name}"]`);
+        if (![...group].some(r => r.checked)) {
+          ok = false;
+          el.closest('.chip-group, .budget-grid') && shake(el.closest('.chip-group, .budget-grid'));
+        }
+      } else if (!el.value.trim()) {
+        ok = false; shake(el);
+      }
+    });
+    if (ok) setStep(current + 1);
+  }
+
+  function prevStep(current) { setStep(current - 1); }
+
+  function shake(el) {
+    el.style.animation = 'shake 0.35s ease';
+    el.style.borderColor = 'rgba(255,92,40,0.6)';
+    setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 400);
+  }
+
+  // ── FORM SUBMIT ──
+  const form = document.getElementById('intake-form');
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('submit-btn');
+    btn.textContent = 'Sending…';
+    btn.disabled = true;
+
+    // Submit to Netlify
+    try {
+      await fetch('/', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(new FormData(form)).toString()
+      });
+    } catch (_) { /* fail silently — show success anyway */ }
+
+    // Show success
+    form.style.display = 'none';
+    document.querySelector('.form-header').style.display = 'none';
+    document.querySelector('.steps').style.display = 'none';
+    document.getElementById('success-screen').style.display = 'block';
+  });
+
+  // ── CHIP RADIO FIX (nested label) ──
+  document.querySelectorAll('.chip, .budget-opt').forEach(chip => {
+    const radio = chip.querySelector('input[type="radio"]');
+    const lbl = chip.querySelector('label');
+    if (lbl) lbl.addEventListener('click', () => {
+      radio.checked = true;
+      radio.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+  });
+
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+</script>
+
+<style>
+  @keyframes shake {
+    0%,100% { transform: translateX(0); }
+    25% { transform: translateX(-6px); }
+    75% { transform: translateX(6px); }
+  }
+</style>
+
 </body>
 </html>
