@@ -7,7 +7,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
   :root {
     --bg: #080808;
     --bg2: #0f0f0f;
@@ -22,9 +22,9 @@
     --glass-blur: blur(20px) saturate(160%);
     --glass-shadow: 0 4px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.07);
   }
- 
+
   html { scroll-behavior: smooth; }
- 
+
   body {
     background: var(--bg);
     color: var(--text);
@@ -37,7 +37,7 @@
     padding: 60px 24px 80px;
     overflow-x: hidden;
   }
- 
+
   /* ── BG ORB ── */
   .bg-orb {
     position: fixed; top: -160px; left: 50%;
@@ -52,7 +52,7 @@
     0%,100% { opacity: 0.7; transform: translateX(-50%) scale(1); }
     50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
   }
- 
+
   /* ── CARD ── */
   .form-card {
     position: relative; z-index: 1;
@@ -65,19 +65,19 @@
     box-shadow: var(--glass-shadow);
     overflow: hidden;
   }
- 
+
   /* top accent line */
   .form-card::before {
     content: '';
     display: block; width: 100%; height: 2px;
     background: linear-gradient(90deg, var(--accent), var(--accent2), transparent);
   }
- 
+
   .form-header {
     padding: 40px 44px 32px;
     border-bottom: 1px solid var(--border);
   }
- 
+
   .back-link {
     display: inline-flex; align-items: center; gap: 6px;
     font-size: 12px; font-weight: 500; color: var(--muted);
@@ -86,7 +86,7 @@
     transition: color 0.2s;
   }
   .back-link:hover { color: var(--accent); }
- 
+
   .brand {
     font-family: 'Space Grotesk', sans-serif;
     font-size: 13px; font-weight: 600; letter-spacing: 0.5px;
@@ -101,7 +101,7 @@
   .form-sub {
     font-size: 14px; color: var(--muted); line-height: 1.65;
   }
- 
+
   /* ── STEPS INDICATOR ── */
   .steps {
     display: flex; align-items: center; gap: 0;
@@ -132,13 +132,13 @@
     flex: 1; height: 1px; background: var(--border);
     margin: 0 4px; max-width: 40px;
   }
- 
+
   /* ── FORM BODY ── */
   .form-body { padding: 36px 44px 40px; }
- 
+
   .field-group { margin-bottom: 24px; }
   .field-group:last-of-type { margin-bottom: 32px; }
- 
+
   label {
     display: block;
     font-size: 13px; font-weight: 500; color: var(--text);
@@ -146,7 +146,7 @@
   }
   label .req { color: var(--accent); margin-left: 2px; }
   label .hint { color: var(--muted); font-weight: 400; margin-left: 6px; font-size: 12px; }
- 
+
   input[type="text"],
   input[type="email"],
   input[type="number"],
@@ -172,10 +172,10 @@
   }
   select option { background: #1a1a1a; color: var(--text); }
   textarea { resize: vertical; min-height: 100px; line-height: 1.6; }
- 
+
   /* inline row */
   .field-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
- 
+
   /* ── VIDEO TYPE CHIPS ── */
   .chip-group { display: flex; flex-wrap: wrap; gap: 10px; }
   .chip input { position: absolute; opacity: 0; pointer-events: none; }
@@ -200,7 +200,7 @@
     box-shadow: 0 0 0 1px rgba(255,92,40,0.3), inset 0 1px 0 rgba(255,140,90,0.12);
   }
   .chip-icon { font-size: 15px; }
- 
+
   /* ── BUDGET SELECT ── */
   .budget-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .budget-opt input { position: absolute; opacity: 0; pointer-events: none; }
@@ -224,7 +224,7 @@
     font-size: 15px; font-weight: 700; color: var(--text);
   }
   .budget-label { font-size: 11px; color: var(--muted); font-weight: 400; }
- 
+
   /* ── SUBMIT ── */
   .submit-btn {
     width: 100%;
@@ -244,7 +244,7 @@
     box-shadow: 0 8px 32px rgba(255,92,40,0.4), inset 0 1px 0 rgba(255,255,255,0.15);
   }
   .submit-btn:active { transform: translateY(0); }
- 
+
   /* ── SUCCESS STATE ── */
   .success-screen {
     display: none;
@@ -265,7 +265,7 @@
     margin-bottom: 12px;
   }
   .success-sub { font-size: 14px; color: var(--muted); line-height: 1.7; max-width: 340px; margin: 0 auto; }
- 
+
   /* ── FOOTER ── */
   .form-footer {
     margin-top: 24px; text-align: center;
@@ -273,7 +273,7 @@
     position: relative; z-index: 1;
   }
   .form-footer a { color: var(--accent); text-decoration: none; }
- 
+
   /* ── RESPONSIVE ── */
   @media (max-width: 560px) {
     body { padding: 32px 16px 60px; }
@@ -284,11 +284,11 @@
 </style>
 </head>
 <body>
- 
+
 <div class="bg-orb"></div>
- 
+
 <div class="form-card" id="form-card">
- 
+
   <!-- HEADER -->
   <div class="form-header">
     <a href="javascript:history.back()" class="back-link">
@@ -299,7 +299,7 @@
     <h1 class="form-title">Start Your Project</h1>
     <p class="form-sub">Tell me what you need — I'll get back to you within 24 hours.</p>
   </div>
- 
+
   <!-- STEPS -->
   <div class="steps">
     <div class="step active" id="step-1">
@@ -317,14 +317,14 @@
       <span>Budget</span>
     </div>
   </div>
- 
+
   <!-- FORM -->
   <form id="intake-form" name="client-intake" netlify netlify-honeypot="bot-field" novalidate>
     <input type="hidden" name="form-name" value="client-intake">
     <input type="hidden" name="bot-field" style="display:none">
- 
+
     <div class="form-body">
- 
+
       <!-- STEP 1: Contact -->
       <div class="form-step" id="page-1">
         <div class="field-row">
@@ -350,7 +350,7 @@
           <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7"/></svg>
         </button>
       </div>
- 
+
       <!-- STEP 2: Project -->
       <div class="form-step" id="page-2" style="display:none">
         <div class="field-group">
@@ -398,7 +398,7 @@
           </button>
         </div>
       </div>
- 
+
       <!-- STEP 3: Budget -->
       <div class="form-step" id="page-3" style="display:none">
         <div class="field-group">
@@ -444,23 +444,23 @@
           </button>
         </div>
       </div>
- 
+
     </div>
   </form>
- 
+
   <!-- SUCCESS -->
   <div class="success-screen" id="success-screen">
     <div class="success-icon">🎬</div>
     <h2 class="success-title">You're in the queue!</h2>
     <p class="success-sub">Got your details. I'll review and get back to you at your email within 24 hours.</p>
   </div>
- 
+
 </div>
- 
+
 <p class="form-footer">
   © 2024 Anvay Edits &nbsp;·&nbsp; <a href="mailto:business4anvay@gmail.com">business4anvay@gmail.com</a>
 </p>
- 
+
 <script>
   // ── STEP NAV ──
   function setStep(n) {
@@ -474,7 +474,7 @@
     });
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
- 
+
   function nextStep(current) {
     // basic validation
     const page = document.getElementById(`page-${current}`);
@@ -493,39 +493,60 @@
     });
     if (ok) setStep(current + 1);
   }
- 
+
   function prevStep(current) { setStep(current - 1); }
- 
+
   function shake(el) {
     el.style.animation = 'shake 0.35s ease';
     el.style.borderColor = 'rgba(255,92,40,0.6)';
     setTimeout(() => { el.style.animation = ''; el.style.borderColor = ''; }, 400);
   }
- 
+
   // ── FORM SUBMIT ──
+  // 👉 SETUP: Go to https://formspree.io → New Form → copy your endpoint URL
+  // Replace the placeholder below with your real endpoint e.g. https://formspree.io/f/xyzabc12
+  const FORMSPREE_ENDPOINT = 'https://formspree.io/f/xpqnlepa';
+
   const form = document.getElementById('intake-form');
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const btn = document.getElementById('submit-btn');
-    btn.textContent = 'Sending…';
+    const originalHTML = btn.innerHTML;
+    btn.innerHTML = '<svg width="16" height="16" style="animation:spin 0.8s linear infinite" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg> Sending…';
     btn.disabled = true;
- 
-    // Submit to Netlify
+
+    let success = false;
     try {
-      await fetch('/', {
+      const res = await fetch(FORMSPREE_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams(new FormData(form)).toString()
+        headers: { 'Accept': 'application/json' },
+        body: new FormData(form)
       });
-    } catch (_) { /* fail silently — show success anyway */ }
- 
-    // Show success
-    form.style.display = 'none';
-    document.querySelector('.form-header').style.display = 'none';
-    document.querySelector('.steps').style.display = 'none';
-    document.getElementById('success-screen').style.display = 'block';
+      success = res.ok;
+    } catch (_) {}
+
+    if (success) {
+      form.style.display = 'none';
+      document.querySelector('.form-header').style.display = 'none';
+      document.querySelector('.steps').style.display = 'none';
+      document.getElementById('success-screen').style.display = 'block';
+    } else {
+      btn.innerHTML = originalHTML;
+      btn.disabled = false;
+      // Show inline error
+      let err = document.getElementById('form-error');
+      if (!err) {
+        err = document.createElement('p');
+        err.id = 'form-error';
+        err.style.cssText = 'color:#FF5C28;font-size:13px;margin-top:12px;text-align:center';
+        btn.parentNode.appendChild(err);
+      }
+      err.textContent = FORMSPREE_ENDPOINT === https://formspree.io/f/xpqnlepa'YOUR_FORMSPREE_ENDPOINT'
+        ? '⚠️ Form not connected yet — add your Formspree endpoint to the HTML.'
+        : '⚠️ Something went wrong. Please email business4anvay@gmail.com directly.';
+    }
   });
- 
+
   // ── CHIP RADIO FIX (nested label) ──
   document.querySelectorAll('.chip, .budget-opt').forEach(chip => {
     const radio = chip.querySelector('input[type="radio"]');
@@ -535,17 +556,20 @@
       radio.dispatchEvent(new Event('change', { bubbles: true }));
     });
   });
- 
- 
+
+
 </script>
- 
+
 <style>
   @keyframes shake {
     0%,100% { transform: translateX(0); }
     25% { transform: translateX(-6px); }
     75% { transform: translateX(6px); }
   }
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
 </style>
- 
+
 </body>
 </html>
